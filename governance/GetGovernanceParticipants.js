@@ -10,41 +10,32 @@ const url =
 
 // Gathers addresses from snapshot URL
 async function getGovernanceParticipants() {
-  try {
-    let governanceParticipants = {};
+  let governanceParticipants = {};
 
-    let snapshotVoters = await axios.get(url);
-    snapshotVoters = snapshotVoters.data;
+  let snapshotVoters = await axios.get(url);
+  snapshotVoters = snapshotVoters.data;
 
-    // Adds snapshot result to voters
-    snapshotVoters.forEach((voter) => {
-      voter = voter.address.toLowerCase();
+  // Adds snapshot result to voters
+  snapshotVoters.forEach((voter) => {
+    voter = voter.address.toLowerCase();
+
+    governanceParticipants[voter] = 80;
+  });
+
+  MakerAddresses.forEach((voter) => {
+    if (voter.Since < "2021-02-10") {
+      voter = voter.Address;
+      voter = voter.toLowerCase();
 
       governanceParticipants[voter] = 80;
-    });
+    }
+  });
 
-    MakerAddresses.forEach((voter) => {
-      if (voter.Since < "2021-02-10") {
-        voter = voter.Address;
-        voter = voter.toLowerCase();
+  governanceParticipants = JSON.stringify(governanceParticipants, null, 2);
 
-        governanceParticipants[voter] = 80;
-      }
-    });
-
-    governanceParticipants = JSON.stringify(governanceParticipants, null, 2);
-
-    // Writes to a json file in ./outputs
-    fs.writeFile('./outputs/governance_participants.json', governanceParticipants, err => {
-        if(err){
-            console.log(err);
-        } else {
-            console.log("Successfully gathered governance participant addresses for Maker, Yam, Sushi, BadgerDAO and Yearn");
-        }
-})
-  } catch (error) {
-    console.log(error);
-  }
+  // Writes to a json file in ./outputs
+  fs.writeFileSync('./outputs/governance_participants.json', governanceParticipants);
+  console.log("Successfully gathered governance participant addresses for Maker, Yam, Sushi, BadgerDAO and Yearn");
 }
 
 module.exports = {

@@ -45,13 +45,8 @@ async function getAllTokenholders() {
     umaHolders = JSON.stringify(umaHolders, null, 2);
 
     // Write combined and deduped list of synth holders to a json
-    fs.writeFile('./outputs/uma_holders.json', umaHolders, err => {
-        if(err){
-            console.log(err);
-        } else {
-            console.log("Successfully gathered addresses for UMA holders with more than 10 UMA at block #11830000");
-        }
-    })
+    fs.writeFileSync('./outputs/uma_holders.json', umaHolders);
+    console.log("Successfully gathered addresses for UMA holders with more than 10 UMA at block #11830000");
 }
 
 module.exports = {
