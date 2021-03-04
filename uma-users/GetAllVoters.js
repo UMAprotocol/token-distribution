@@ -4,11 +4,6 @@
  */
 const { getAbi } = require("@uma/core");
 const Web3 = require("web3");
-const fs = require('fs');
-
-const argv = require("minimist")(process.argv.slice(), {
-    string: ["url"]
-  });
 
   const VOTING_CONTRACT_ADDRESSES = [
     { address: "0x1d847fb6e04437151736a53f09b6e49713a52aad", version: "1.2.2" },
@@ -17,8 +12,8 @@ const argv = require("minimist")(process.argv.slice(), {
     { address: "0x8B1631ab830d11531aE83725fDa4D86012eCCd77", version: "latest" }
   ];
 
-async function getAllVoters() {
-  const web3 = new Web3(argv.url);
+async function getAllVoters(url) {
+  const web3 = new Web3(url);
 
   // All unique voters across all Voting Contracts
   const UNIQUE_VOTER_LIST = {};

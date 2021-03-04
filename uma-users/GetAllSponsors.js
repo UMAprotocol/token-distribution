@@ -5,11 +5,6 @@
 
 const { getAbi, getAddress, getTruffleContract } = require("@uma/core");
 const Web3 = require("web3");
-const fs = require('fs');
-
-const argv = require("minimist")(process.argv.slice(), {
-    string: ["url"]
-  });
 
 const EMP_FACTORY_ADDRESSES = [
     "0x9a077d4fcf7b26a0514baa4cff0b481e9c35ce87",
@@ -20,7 +15,7 @@ const EMP_FACTORY_ADDRESSES = [
   ];
 
 async function getAllSponsors(url){
-  const web3 = new Web3(argv.url);
+  const web3 = new Web3(url);
 
   // All unique sponsors across all EMP's
   const UNIQUE_SPONSOR_LIST = {};
