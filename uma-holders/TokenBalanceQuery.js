@@ -13,7 +13,7 @@ function createTokenBalanceQuery(tokenAddress) {
                     FROM \`bigquery-public-data.crypto_ethereum.token_transfers\`
                     WHERE (
                         token_address = "${tokenAddress}"
-                        AND block_timestamp < TIMESTAMP('2021-02-10 05:00:49', 'UTC')
+                        AND block_timestamp < TIMESTAMP('2021-02-10 17:00:49', 'UTC')
                     )
                 ),
                 receives AS (
@@ -22,7 +22,7 @@ function createTokenBalanceQuery(tokenAddress) {
                     FROM \`bigquery-public-data.crypto_ethereum.token_transfers\`
                     WHERE (
                         token_address = "${tokenAddress}"
-                        AND block_timestamp < TIMESTAMP('2021-02-10 05:00:49', 'UTC')
+                        AND block_timestamp < TIMESTAMP('2021-02-10 17:00:49', 'UTC')
                     )
                 ),
                 combined AS (
