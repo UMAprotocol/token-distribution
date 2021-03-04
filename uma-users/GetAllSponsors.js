@@ -57,8 +57,6 @@ async function getAllSponsors(url){
   console.log(`There have been ${countSponsors} unique sponsors created across ${countEmps} EMP's`);
 
   return Object.keys(UNIQUE_SPONSOR_LIST);
-
-  console.log("Successful json output");
 }
 
 module.exports = {
