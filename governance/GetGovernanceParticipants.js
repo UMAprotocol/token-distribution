@@ -16,7 +16,7 @@ async function getGovernanceParticipants() {
   snapshotVoters.forEach((voter) => {
     voter = voter.address.toLowerCase();
 
-    governanceParticipants[voter] = 80;
+    governanceParticipants[voter] = 90;
   });
 
   governanceParticipants = JSON.stringify(governanceParticipants, null, 2);

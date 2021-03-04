@@ -38,7 +38,7 @@ async function getAllTokenholders() {
     // Loop through results from BQ and add to a map. Removes dedupes.
     umaHolderResults.forEach(holder => {
         holder = holder.address.toLowerCase();
-        umaHolders[holder] = 120;
+        umaHolders[holder] = 60;
     })
     
     // Convert synthHolders to JSON format
