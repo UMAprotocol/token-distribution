@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/bigquery": "^5.5.0",
-    "@uma/common": "^2.0.1",
     "@uma/core": "^2.0.1",
     "axios": "^0.21.1",
     "highland": "^2.13.5",

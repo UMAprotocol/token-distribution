@@ -1,7 +1,6 @@
 /**
  *  @notice For every EMP ever created in the hardcoded list of EMP factories, return all sponsors who ever created a position.
  *
- * Example: `node uma-users/GetAllSponsors.js --url "INFURA_URL"`
  */
 
 const { getAbi, getAddress, getTruffleContract } = require("@uma/core");
@@ -20,7 +19,7 @@ const EMP_FACTORY_ADDRESSES = [
     "0xdebb91ab3e473025bb8ce278c02361a3c4f13124"
   ];
 
-async function getAllSponsors(){
+async function getAllSponsors(url){
   const web3 = new Web3(argv.url);
 
   // All unique sponsors across all EMP's
@@ -47,10 +46,10 @@ async function getAllSponsors(){
       const newSponsorEvents = await emp.getPastEvents("NewSponsor", { fromBlock: 0, toBlock: 11830000});
 
       for (let newSponsorEvent of newSponsorEvents) {
-        const sponsor = newSponsorEvent.args.sponsor;
+        const sponsor = newSponsorEvent.args.sponsor.toLowerCase();
 
         // Add to dictionary.
-        UNIQUE_SPONSOR_LIST[sponsor] = 120;
+        UNIQUE_SPONSOR_LIST[sponsor] = true;
         UNIQUE_EMP_LIST[emp.address][sponsor] = true;
       }
     }
@@ -62,19 +61,11 @@ async function getAllSponsors(){
 
   console.log(`There have been ${countSponsors} unique sponsors created across ${countEmps} EMP's`);
 
-  // Uncomment below to print out the lists:
-  // console.log(
-  //   UNIQUE_SPONSOR_LIST
-  // )
-  // console.log(
-  //   UNIQUE_EMP_LIST
-  // )
+  return Object.keys(UNIQUE_SPONSOR_LIST);
 
-  fs.writeFileSync('./outputs/uma_minters.json', JSON.stringify(UNIQUE_SPONSOR_LIST, null, 2));
   console.log("Successful json output");
 }
 
-getAllSponsors().then(() => process.exit(0)).catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+module.exports = {
+  getAllSponsors
+};

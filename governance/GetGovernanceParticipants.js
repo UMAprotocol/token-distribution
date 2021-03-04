@@ -34,7 +34,7 @@ async function getGovernanceParticipants() {
   governanceParticipants = JSON.stringify(governanceParticipants, null, 2);
 
   // Writes to a json file in ./outputs
-  fs.writeFileSync('./outputs/governance_participants.json', governanceParticipants);
+  fs.writeFileSync('./outputs/governance_recipients.json', governanceParticipants);
   console.log("Successfully gathered governance participant addresses for Maker, Yam, Sushi, BadgerDAO and Yearn");
 }
 
