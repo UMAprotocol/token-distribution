@@ -19,8 +19,6 @@ async function getAllSponsors(url){
 
   // All unique sponsors across all EMP's
   const UNIQUE_SPONSOR_LIST = {};
-  // Unique sponsors mapped to EMP's
-  const UNIQUE_EMP_LIST = {};
 
   for (let i = 0; i < EMP_FACTORY_ADDRESSES.length; i++) {
     const ExpiringMultiPartyCreator = getTruffleContract("ExpiringMultiPartyCreator", web3);
@@ -35,7 +33,6 @@ async function getAllSponsors(url){
       const ExpiringMultiParty = getTruffleContract("ExpiringMultiParty", web3);
 
       const emp = await ExpiringMultiParty.at(creationEvent.args.expiringMultiPartyAddress);
-      UNIQUE_EMP_LIST[emp.address] = {};
 
       // Fetch all NewSponsor events from the EMP
       const newSponsorEvents = await emp.getPastEvents("NewSponsor", { fromBlock: 0, toBlock: 11830000});
@@ -45,16 +42,14 @@ async function getAllSponsors(url){
 
         // Add to dictionary.
         UNIQUE_SPONSOR_LIST[sponsor] = true;
-        UNIQUE_EMP_LIST[emp.address][sponsor] = true;
       }
     }
   }
   const sponsorAddresses = Object.keys(UNIQUE_SPONSOR_LIST);
 
-  const countSponsors = Object.keys(UNIQUE_SPONSOR_LIST).length;
-  const countEmps = Object.keys(UNIQUE_EMP_LIST).length;
+  const countSponsors = sponsorAddresses.length;
 
-  console.log(`There have been ${countSponsors} unique sponsors created across ${countEmps} EMP's`);
+  console.log(`There have been ${countSponsors} unique sponsors`);
 
   return Object.keys(UNIQUE_SPONSOR_LIST);
 }
