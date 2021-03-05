@@ -32,12 +32,14 @@ async function collectAddresses(){
     const sponsors = await getAllSponsors(argv.url);
 
     sponsors.forEach((sponsor) => { 
+        // Allocate 120 KPI Options to each sponsor
         SPONSORS_AND_VOTERS[sponsor] = 120;
     });
 
     const voters = await getAllVoters(argv.url);
 
-    voters.forEach((voter) => { 
+    voters.forEach((voter) => {
+        // Allocate 120 KPI Options to each voter
         SPONSORS_AND_VOTERS[voter] = 120;
     });
 

@@ -16,6 +16,7 @@ async function getGovernanceParticipants() {
   snapshotVoters.forEach((voter) => {
     voter = voter.address.toLowerCase();
 
+    // Allocate 90 KPI Options to each governance participant
     governanceParticipants[voter] = 90;
   });
 

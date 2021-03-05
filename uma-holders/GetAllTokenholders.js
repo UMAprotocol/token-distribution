@@ -12,7 +12,7 @@ async function submitQuery(query){
   
     // returns a node read stream
     const stream = await client.createQueryStream({query})
-    // highland wraps a stream and adds utilities simlar to lodash
+    // highland wraps a stream and adds utilities similar to lodash
     // https://caolan.github.io/highland/
     return highland(stream)
       
@@ -38,6 +38,8 @@ async function getAllTokenholders() {
     // Loop through results from BQ and add to a map. Removes dedupes.
     umaHolderResults.forEach(holder => {
         holder = holder.address.toLowerCase();
+
+        // Allocate 60 KPI Options to each address
         umaHolders[holder] = 60;
     })
     
